@@ -1,7 +1,7 @@
 const { API_KEY } = process.env;
 const axios = require("axios");
 const { Recipe, DietType } = require("../db");
-const Sequelize = require('sequelize')
+
 
 const api = async () => {
   try {
@@ -48,6 +48,10 @@ const db = async () =>{
 const allInfo = async () => {
     const apiInfo = await api();
     const dbInfo = await db();
-    const allInfo = [...dbInfo,...apiInfo]
-    return allInfo;
+    const info = [...dbInfo,...apiInfo]
+    return info;
+}
+
+module.exports = {
+    allInfo
 }
