@@ -4,8 +4,8 @@ import axios from 'axios';
 
 //Con esta funcion me traigo las recetas desde el servidor osea el backend y genero la coneccion del front con el back
 export function getAllRecipes() {
-    return async function (dispatch) {
-        let json = await axios.get('http://localhost:3001/recipes')
+    return async function (dispatch) { 
+        let json = await axios.get("http://localhost:3001/recipes");
         return dispatch({
             type: 'GET_RECIPES',
             payload: json.data

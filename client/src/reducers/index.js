@@ -1,10 +1,11 @@
+
 const initialState = {
   recipes: [],
   allRecipes: [],
 };
 
 function rootReducer(state = initialState, action) {
-  switch (action.payload) {
+  switch (action.type) {
     case "GET_RECIPES":
       return {
         ...state,

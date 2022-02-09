@@ -26,20 +26,17 @@ export default function Home() {
   const [recipesPerPage, setRecipesPerPage] = useState(9);
   const indexOfLastRecipe = currentPage * recipesPerPage; // 9
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage; // 0
-  //y lo ultimo que voy a hacer
-  const currentRecipes = allRecipes.slice(
-    indexOfFirstRecipe,
-    indexOfLastRecipe
-  );
+  const currentRecipes = allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
   //los personajes que van a estar en la pagina actual
   //guarda todas las recetas que tengo por paginas
   //el slice agarra un arreglo y lo va cortando dependiendo lo que yo voy pasandole por parametro
-
   //y por ultimo creo la constante del paginado
   //esta es la que me va a ayudar al renderizado
-  function paginado (pageNumber) {
+
+  const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
+
   //vamos a traernos las recetas del estado
   //para eso utilizamos un useEffect
   useEffect(() => {
@@ -101,8 +98,16 @@ dispatch(getAllRecipes()); //esto es lo mismo que hacer el map.dispatch.toprops
           </select>
         </div>
 
+
         <div>
-          {currentRecipes?.map((e) => {
+        <Paged className="paged"
+              recipesPerPage={recipesPerPage} 
+              allRecipes={allRecipes.length} 
+              paginado={paginado} />
+        </div>
+
+        <div>
+          {currentRecipes.map((e) => {
             return (
               <div>
                 <Link to={`/recipes/${e.id}`}>
@@ -110,7 +115,7 @@ dispatch(getAllRecipes()); //esto es lo mismo que hacer el map.dispatch.toprops
                     image={e.image}
                     name={e.name}
                     diet={
-                      e.createdInDb
+                        e.createdInDb
                         ? e.DietTypes.map((dt) => dt.name)
                         : e.diet
                     }
@@ -120,13 +125,6 @@ dispatch(getAllRecipes()); //esto es lo mismo que hacer el map.dispatch.toprops
               </div>
             );
           })}
-        </div>
-
-        <div>
-        <Paged className="paged"
-              recipesPerPage={recipesPerPage} 
-              allRecipes={allRecipes.length} 
-              paginado={paginado} />
         </div>
 
       </div>

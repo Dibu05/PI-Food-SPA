@@ -10,11 +10,11 @@ export default function Paginado({ recipesPerPage, allRecipes, paginado }) {
   //este va a ser el componente que me lo renderice todo
   return (
     <nav>
-      <ul className="paginado">
+      <ul>
         {pageNumber &&
           pageNumber.map((number) => (
             <li key={number}>
-              <button className="botonP" onClick={() => paginado(number)}>
+              <button onClick={() => paginado(number)}>
                 {number}
               </button>
             </li>

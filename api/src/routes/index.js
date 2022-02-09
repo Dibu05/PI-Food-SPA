@@ -15,7 +15,7 @@ const Op = Sequelize.Op;
 //Voy a determinar 3 constantes, 1 con los datos de la api, 2 con los datos de la base de datos y 3 una que los concatene a ambos
 
 //lo primero que hago es crear una constante que me traiga todos los datos de la api
-const getApiInfo = async () => { 
+const getApiInfo = async () => {
   try {
     const apiUrl = await axios.get(
       `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
@@ -59,7 +59,7 @@ const getDbInfo = async () => {
 const getAllRecipie = async () => {
   const apiInfo = await getApiInfo();
   const dbfInfo = await getDbInfo();
-  const allInfo = apiInfo.concat(dbfInfo);
+  const allInfo = [...apiInfo, ...dbfInfo]
   return allInfo;
 };
 
@@ -68,8 +68,9 @@ const getAllRecipie = async () => {
 //NO TOCAR ANDA PERFECTA LA RUTA jaja
 //hago la primera ruta, que me traiga todas las recetas, las pido por query
 router.get("/recipes", async (req, res) => {
-  const info = await getAllRecipie();
   const name = req.query.name;
+  try{
+  const info = await getAllRecipie();
   if (!name) {
     return res.status(200).json(info);
   } //le pido que me pase la receta que estoy buscando, que las pase todas a minusculas
@@ -80,6 +81,9 @@ router.get("/recipes", async (req, res) => {
   fillInfo.length
     ? res.status(200).json(fillInfo)
     : res.status(404).send("There is no coincidence");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 //NO TOCAR RUTA ANDA PERFECTA
@@ -87,6 +91,7 @@ router.get("/recipes", async (req, res) => {
 //lo que yo quiero es poner el numero de id y que traiga esa sola receta, si no existe que me muestre el msj adecuado
 router.get("/recipes/:id", async (req, res) => {
   const id = req.params.id; //la hago utilizando params
+  try {
   const allRecipe = await getAllRecipie();
   if (id) {
     const fillRecipe = await allRecipe.filter(
@@ -94,13 +99,15 @@ router.get("/recipes/:id", async (req, res) => {
     );
     fillRecipe.length
       ? res.status(200).json(fillRecipe)
-      : res.status(404).send("Recipe doesn't exist");
-  }
+      : res.status(404).send("Recipe doesn't exist");   
+  }}
+   catch (err) {console.log(err)}
 });
 
 //NO TOCAR RUTA ANDA PERFECTA jaja
 //creo una ruta que me traiga los tipos de dietas que existen o posibles
 router.get("/types", async (req, res) => {
+  try{
   const allData = await axios.get(
     `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
@@ -123,7 +130,8 @@ router.get("/types", async (req, res) => {
   });
   const allDiet = await DietType.findAll();
   res.json(allDiet);
-});
+  } catch (err) {console.log(err)}
+})
 
 //la ruta del post es para crear una nueva receta
 // y por ultimo hago una ruta para crear una nueva receta
