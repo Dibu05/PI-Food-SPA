@@ -15,7 +15,7 @@ const Op = Sequelize.Op;
 //Voy a determinar 3 constantes, 1 con los datos de la api, 2 con los datos de la base de datos y 3 una que los concatene a ambos
 
 //lo primero que hago es crear una constante que me traiga todos los datos de la api
-const getApiInfo = async () => {
+const getApiInfo = async () => { 
   try {
     const apiUrl = await axios.get(
       `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
