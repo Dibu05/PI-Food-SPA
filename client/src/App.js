@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
-//import RecipeCreate from "./components/RecipeCreate";
+import RecipeCreate from "./components/RecipeCreate";
 //import Detail from "./components/Detail";
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/create" element={<RecipeCreate />} />
         </Routes>
       </div>
     </Router>
