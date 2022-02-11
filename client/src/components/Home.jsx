@@ -117,7 +117,7 @@ export default function Home() {
           <option value="whole 30">Whole 30</option>
         </select>
       </div>
-
+          <SearchBar/>
       <div>
         {currentRecipes.map((e) => {
           return (

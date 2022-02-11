@@ -6,7 +6,7 @@ const { Recipe, DietType } = require("../db");
 const router = Router();
 const Sequelize = require("sequelize");
 const { API_KEY } = process.env;
-const Op = Sequelize.Op; 
+const Op = Sequelize.Op; // esto es para que me traiga todos los datos de la api y la base de datos y los concatene en un arreglo para que no se repitan
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);

@@ -13,6 +13,36 @@ export function getAllRecipes() {
   };
 }
 
+//vamos a hacer la ruta que me traiga la informacion para poder hacer la barra de busqueda
+//de esta manera puedo crear el search name
+export function getNameRecipe(payload) {
+  //yo pongo payload porque es lo que le estoy pasando aca, si fuera name, le paso name
+  return async function (dispatch) {
+    try {
+      //tengo que traerme la ruta del back para que esto quede concatenado, tengo que siempre agregarle el payload
+      let json = await axios.get(
+        "http://localhost:3001/recipes?name=" + payload
+      );
+      return dispatch({
+        type: "GET_NAME_RECIPE",
+        payload: json.data,
+      }); //es lo que devuelve la ruta una vez que le asigno algo por name
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function postRecipe(payload) {
+  return async function (dispatch) {
+    let json = await axios.post("http://localhost:3001/recipes", payload);
+    return dispatch({
+      type: "POST_RECIPES",
+      payload: json.data,
+    });
+  };
+}
+
 //Hago el filtro por tipo de dieta
 //el payload es el value que tomamos del input del filtro
 export function setFilterByDietTypes(payload) {

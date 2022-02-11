@@ -1,6 +1,7 @@
 const initialState = {
   recipes: [],
   allRecipes: [],
+  recipeTypes: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -66,7 +67,22 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: orderArray,
       };
-      
+    case "GET_NAME_RECIPE":
+      return {
+        //devolveme como siempre el estado
+        ...state,
+        recipes: action.payload, //y las recetas
+      };
+    case 'POST_RECIPES':
+      return {
+        ...state,
+      }
+    case 'GET_RECIPE_TYPE':
+      return {
+        ...state,
+        recipeTypes: action.payload,
+      }
+
     default:
       return state;
   }
