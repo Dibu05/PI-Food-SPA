@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postRecipe, getRecipeType } from "../actions/index";
 import { useDispatch, useSelector } from "react-redux";
-
 
 function RecipeCreate() {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.recipeTypes); //me traigo las recetas usando el useSelector, trayendo el estado
-  //el history y history.push, es basicamente lo que hace para redirigirme a la ruta que yo le diga
+  const Navigate = useNavigate();
   //me creo una constante para poder hacer la validacion
   const [err, setErr] = useState({}); //va a ser un objeto vacio
   //al bloquear el boton, hay campos que son requeridos y si no se llenan no te deja
@@ -20,10 +19,10 @@ function RecipeCreate() {
   function validar(input) {
     let err = {};
     if (!input.name) {
-      err.name = "Debe ingresar un nombre";
+      err.name = "You must insert a name";
       setBtnSend(false);
     } else if (!input.resume) {
-      err.resume = "Debe ingresar un resumen del plato";
+      err.resume = "You must insert a Resume";
       setBtnSend(false);
     } else {
       setBtnSend(true);
@@ -77,13 +76,13 @@ function RecipeCreate() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!input.diets.length) {
-      return alert("Debe ingresar al menos una dieta");
+      return alert("You must insert diet type");
     } else {
       if (!input.image)
         input.image =
           "https://cdn.pixabay.com/photo/2014/12/21/23/28/recipe-575434_960_720.png";
       dispatch(postRecipe(input));
-      alert("Recete creada con exito");
+      alert("Recipe created!");
       setInput({
         name: "",
         score: "",
@@ -93,6 +92,7 @@ function RecipeCreate() {
         image: "",
         diets: [],
       });
+      Navigate("/home");
     }
   }
   //esto lo hago para poder renderizarlas
@@ -117,7 +117,7 @@ function RecipeCreate() {
         <h1>Create a New Recipe</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-            <label>Nombre:</label>
+            <label>Name:</label>
             <input
               type="text"
               value={input.name}
@@ -127,7 +127,7 @@ function RecipeCreate() {
             {err.name && <p>{err.name}</p>}
           </div>
           <div>
-            <label>Resumen del Plato:</label>
+            <label>Resume:</label>
             <input
               type="text"
               value={input.resume}
@@ -137,7 +137,7 @@ function RecipeCreate() {
             {err.resume && <p>{err.resume}</p>}
           </div>
           <div>
-            <label>Puntaje:</label>
+            <label>Score:</label>
             <input
               type="text"
               value={input.score}
@@ -146,7 +146,7 @@ function RecipeCreate() {
             />
           </div>
           <div>
-            <label>Nivel de "comida saludable":</label>
+            <label>Healthy Level:</label>
             <input
               type="text"
               value={input.healthylevel}
@@ -155,16 +155,16 @@ function RecipeCreate() {
             />
           </div>
           <div>
-            <label>Paso a Paso:</label>
+            <label>Step by Step:</label>
             <input
               type="text"
-              value={input.stepByStep}
-              name="stepByStep"
+              value={input.stepbystep}
+              name="stepbystep"
               onChange={(e) => handleChange(e)}
             />
           </div>
           <div>
-            <label>Imagen:</label>
+            <label>Image:</label>
             <input
               type="text"
               value={input.image}
@@ -173,7 +173,7 @@ function RecipeCreate() {
             />
           </div>
           <div>
-            <label>Tipo de Dieta:</label>
+            <label>Type of Diet:</label>
             <select onChange={(e) => handleSelect(e)} name="diets">
               {
                 types.map((t) => (
@@ -185,11 +185,11 @@ function RecipeCreate() {
             </select>
             <div>
               <button type="submit" disabled={!btnSend}>
-                Crear Receta
+                Create Recipe
               </button>
             </div>
             <Link to="/home">
-              <button>Volver</button>
+              <button>Go back</button>
             </Link>
             <ul>{input.diets.map((el) => el + ",")}</ul>
           </div>
@@ -197,7 +197,7 @@ function RecipeCreate() {
             <div>
               {input.diets &&
                 input.diets.map((el) => (
-                  <div>
+                  <div key={el.id}>
                     <p>{el}</p>
                     <button onClick={() => handleDelete(el)}>X</button>
                   </div>

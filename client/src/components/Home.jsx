@@ -71,6 +71,13 @@ export default function Home() {
     setOrder(`Ordenado ${e.target.value}`);
   }
 
+  function handleOrderByAlphabetics(e) {
+    e.preventDefault();
+    dispatch(orderByAlphabetics(e.target.value));
+    setCurrentPage(1);
+    setOrder(`Ordenado ${e.target.value}`);
+  }
+
   //Renderizamos la pagina
   return (
     <div>
@@ -88,7 +95,7 @@ export default function Home() {
       </div>
 
       <div>
-        <select>
+        <select onChange={e => handleOrderByAlphabetics(e)}>
           <option value="all">Orden Alfabetico</option>
           <option value="A-Z">Orden A - Z</option>
           <option value="Z-A">Orden Z - A</option>

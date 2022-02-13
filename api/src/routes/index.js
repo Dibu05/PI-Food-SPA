@@ -6,7 +6,7 @@ const { Recipe, DietType } = require("../db");
 const router = Router();
 const Sequelize = require("sequelize");
 const { API_KEY } = process.env;
-const Op = Sequelize.Op; // esto es para que me traiga todos los datos de la api y la base de datos y los concatene en un arreglo para que no se repitan
+
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -24,7 +24,7 @@ const getApiInfo = async () => {
     const apiInfo = await apiUrl.data.results.map((info) => {
       //declaro una constante que me traiga la info que yo le solicito
       return {
-          //solamente le pido que me traiga estos, mas las dietas
+        //solamente le pido que me traiga estos, mas las dietas
         id: info.id,
         name: info.title,
         resume: info.summary,
@@ -59,7 +59,7 @@ const getDbInfo = async () => {
 const getAllRecipie = async () => {
   const apiInfo = await getApiInfo();
   const dbfInfo = await getDbInfo();
-  const allInfo = [...apiInfo, ...dbfInfo]
+  const allInfo = [...dbfInfo, ...apiInfo];
   return allInfo;
 };
 
@@ -69,18 +69,18 @@ const getAllRecipie = async () => {
 //hago la primera ruta, que me traiga todas las recetas, las pido por query
 router.get("/recipes", async (req, res) => {
   const name = req.query.name;
-  try{
-  const info = await getAllRecipie();
-  if (!name) {
-    return res.status(200).json(info);
-  } //le pido que me pase la receta que estoy buscando, que las pase todas a minusculas
-  const fillInfo = await info.filter((d) =>
-    d.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
-  );
-  //si no encuentro esa informacion que me tire el mensaje de que no hay coincidencia alguna
-  fillInfo.length
-    ? res.status(200).json(fillInfo)
-    : res.status(404).send("There is no coincidence");
+  try {
+    const info = await getAllRecipie();
+    if (!name) {
+      return res.status(200).json(info);
+    } //le pido que me pase la receta que estoy buscando, que las pase todas a minusculas
+    const fillInfo = await info.filter((d) =>
+      d.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+    );
+    //si no encuentro esa informacion que me tire el mensaje de que no hay coincidencia alguna
+    fillInfo.length
+      ? res.status(200).json(fillInfo)
+      : res.status(404).send("There is no coincidence");
   } catch (err) {
     console.log(err);
   }
@@ -92,56 +92,60 @@ router.get("/recipes", async (req, res) => {
 router.get("/recipes/:id", async (req, res) => {
   const id = req.params.id; //la hago utilizando params
   try {
-  const allRecipe = await getAllRecipie();
-  if (id) {
-    const fillRecipe = await allRecipe.filter(
-      (element) => element.id.toString() === id
-    );
-    fillRecipe.length
-      ? res.status(200).json(fillRecipe)
-      : res.status(404).send("Recipe doesn't exist");   
-  }}
-   catch (err) {console.log(err)}
+    const allRecipe = await getAllRecipie();
+    if (id) {
+      const fillRecipe = await allRecipe.filter(
+        (element) => element.id.toString() === id
+      );
+      fillRecipe.length
+        ? res.status(200).json(fillRecipe)
+        : res.status(404).send("Recipe doesn't exist");
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 //NO TOCAR RUTA ANDA PERFECTA jaja
 //creo una ruta que me traiga los tipos de dietas que existen o posibles
 router.get("/types", async (req, res) => {
-  try{
-  const allData = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
-  );
-  //vuelvo a pedir toda la info de la api
-  const diet = allData.data.results.map((elemento) => elemento.diets); //traigo todos los datos y le aplico un map
-  const diet2 = [];
-  diet.map((d2) => {
-    for (var i = 0; i < d2.length; i++) {
-      diet2.push(d2[i]); //lo pusheo
-      //return d2[i];
-    }
-  });
-  diet2.forEach((element) => {
-    if (element) {
-      DietType.findOrCreate({
-        //le pregunto si lo encontro o si lo creo
-        where: { name: element },
-      });
-    }
-  });
-  const allDiet = await DietType.findAll();
-  res.json(allDiet);
-  } catch (err) {console.log(err)}
-})
+  try {
+    const allData = await axios.get(
+      `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+    );
+    //vuelvo a pedir toda la info de la api
+    const diet = allData.data.results.map((elemento) => elemento.diets); //traigo todos los datos y le aplico un map
+    const diet2 = [];
+    diet.map((d2) => {
+      for (var i = 0; i < d2.length; i++) {
+        diet2.push(d2[i]); //lo pusheo
+        //return d2[i];
+      }
+    });
+    diet2.forEach((element) => {
+      if (element) {
+        DietType.findOrCreate({
+          //le pregunto si lo encontro o si lo creo
+          where: { name: element },
+        });
+      }
+    });
+    const allDiet = await DietType.findAll();
+    res.json(allDiet);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //la ruta del post es para crear una nueva receta
 // y por ultimo hago una ruta para crear una nueva receta
-router.post("/recipe", async (req, res) => {
+router.post("/recipe", async (req, res, next) => {
   try {
     let {
       name,
       score,
       resume,
-      stepByStep,
+      stepbystep,
       healthylevel,
       image,
       //createdInDb,
@@ -152,25 +156,23 @@ router.post("/recipe", async (req, res) => {
       name,
       score,
       resume,
-      stepbystep: stepByStep,
+      stepbystep,
       healthylevel,
       image,
       //createdInDb
     }); //los creo en la base de datos
 
-    let arreglo = Array.isArray(diets) ? diets : [diets];
-
     let dietDb = await DietType.findAll({
+      //busco todos los tipos de dietas que existen en la base de datos
       where: {
-        name: {
-          [Op.in]: arreglo,
-        },
+        name: diets,
       },
     });
+    //ahora le pido que me traiga todos los tipos de dietas que existen en la base de datos
     newRecipe.addDietType(dietDb);
-    res.status(200).send("Recipe successfully created!");
-  } catch (error) {
-    console.log(error);
+    res.status(200).send("Receta creada con exito");
+  } catch (e) {
+    next(e);
   }
 });
 
