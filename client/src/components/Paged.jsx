@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../estilos/Paged.css';
 export default function Paginado({ recipesPerPage, allRecipes, paginado }) {
   const pageNumber = [];
   //declaro un arreglo vacio
@@ -10,14 +10,14 @@ export default function Paginado({ recipesPerPage, allRecipes, paginado }) {
   //este va a ser el componente que me lo renderice todo
   return (
     <nav>
-      <ul>
+      <ul className="paginado">
         {pageNumber &&
           pageNumber.map((number) => (
-            <p key= {number} >
+            <li key= {number} >
               <button onClick={() => paginado(number)}>
                 {number}
               </button>
-            </p>
+            </li>
           ))}
       </ul>
     </nav>

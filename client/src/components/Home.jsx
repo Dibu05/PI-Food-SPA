@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paged from "./Paged";
 import SearchBar from "./SearchBar";
+import "../estilos/Home.css";
 
 export default function Home() {
   //Hago esto para despachar mis acciones al reducer y ultilizarlas en el componente
@@ -81,38 +82,44 @@ export default function Home() {
   //Renderizamos la pagina
   return (
     <div>
-      <div>
+      <div className="refresh">
         <button
+        className="btn-actualizar"
           onClick={(e) => {
             handleClick(e);
           }}
         >
-          Refresh!
+          Actualizar
         </button>
         <Link to="/create">
-          <button>Crea tu receta</button>
+          <button className="btn-crear">Crea tu receta</button>
         </Link>
       </div>
 
-      <div>
-        <select onChange={e => handleOrderByAlphabetics(e)}>
-          <option value="all">Orden Alfabetico</option>
+      <div className="Filters">
+
+      <div className="Filter-1">
+        <p>Orden alfabetico:</p>
+        <select className="select1" onChange={e => handleOrderByAlphabetics(e)}>
+          <option value="all"></option>
           <option value="A-Z">Orden A - Z</option>
           <option value="Z-A">Orden Z - A</option>
         </select>
       </div>
 
-      <div>
+      <div className="Filter-2">
+          <p>Orden por Puntaje:</p>
         <select onChange={(e) => handleOrderByScore(e)}>
-          <option value="all">Orden por Puntaje</option>
+          <option value="all"></option>
           <option value="asc">Mayor Puntaje</option>
           <option value="desc">Bajo Puntaje</option>
         </select>
       </div>
 
-      <div>
+      <div className="Filter-3">
+          <p>Orden por Tipo de Dieta:</p>
         <select onChange={(e) => handdleFilterByDietTypes(e)}>
-          <option value="all">Orden por Tipo de Dieta</option>
+          <option value="all"></option>
           <option value="gluten free">Gluten Free</option>
           <option value="dairy free">Dairy Free</option>
           <option value="lacto ovo vegetarian">Lacto ovo vegetarian</option>
@@ -123,13 +130,16 @@ export default function Home() {
           <option value="fodmap friendly">FodMap Friendly</option>
           <option value="whole 30">Whole 30</option>
         </select>
+
       </div>
           <SearchBar/>
-      <div>
+      </div>
+
+      <div className="cards">
         {currentRecipes.map((e) => {
           return (
-            <div key={e.id}>
-              <Link to={`/recipes/${e.id}`}>
+            <div className="card-one" key={e.id}>
+              <Link className="linkto" to={`/recipes/${e.id}`}>
                 <Card
                   image={e.image}
                   name={e.name}
@@ -143,9 +153,8 @@ export default function Home() {
         })}
       </div>
 
-      <div>
+      <div className="paged">
         <Paged
-          className="paged"
           recipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}
           paginado={paginado}

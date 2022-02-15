@@ -1,15 +1,12 @@
 import React from "react";  
-
+import '../estilos/Card.css';
 //exporto lo que necesito mostrar
-export default function Card({id,image,name,diet}) {
+export default function Card({image,name,diet}) {
     return (
-        <div key={id}>
-            <h4>{name}</h4>
-            <img src={image} alt='Imagen no encontrada' width='300px' height='250px'/>
-            <h5>{diet}</h5>
-            <div>
-                <h5>Show Recipe!</h5>
-            </div>
+        <div className="cards-single">
+            <h4 className="tittle-card">{name}</h4>
+            <img className="img-card" src={image} alt='Imagen no encontrada' width='200px' height='200px'/>
+            <h5 className="diet-type">{diet}</h5>
         </div>
     )
 }

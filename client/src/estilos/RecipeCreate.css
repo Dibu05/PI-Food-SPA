@@ -1,0 +1,135 @@
+.crearReceta {
+    height: 750px;
+    margin-top: -20px;
+    font-family: "Marker Felt";
+}
+
+.tittle-form{
+    font-size: 50px;
+    font-family: "Akaya Telivigala", cursive;
+    color: tomato;
+    position: center;
+
+}
+
+.formulario {
+    background-color: #e0c8a89a;
+    border-radius: 20px;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    margin-left: 490px;
+    margin-right: 600px;
+    margin-top: 50px;
+    font-size: 20px;
+    height: 600px;
+    width: 400px;
+}
+
+.form1 {
+    display: grid;
+}
+
+.casilla1 {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.form2 {
+    display: grid;
+}
+
+.casilla2 {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.form3 {
+    display: grid;
+}
+
+.casilla3 {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.form4 {
+    display: grid;
+}
+
+.casilla4 {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.form5 {
+    display: grid;
+}
+
+.casilla5 {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.form6 {
+    display: grid;
+}
+
+.casilla6 {
+    border-radius: 10px;
+    width: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.form7 {
+    display: grid;
+}
+
+.casilla7 {
+    border-radius: 10px;
+    width: 308px;
+    margin-left: 50px;
+    font-size: 15px;
+}
+
+.seleccion {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    margin-right: 120px;
+    list-style-type: none;
+}
+
+.lista {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    list-style-type: none;
+    float: left;
+    text-align: center;
+    width: 5em;
+    margin-left: 150px;
+}
+
+.botonX {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    border-radius: 10px;
+}
+
+.crear {
+    border-radius: 10px;
+    margin-left: 1px;
+    margin-top: 30px;
+}
+
+.volver {
+    background-color: transparent;
+    border-radius: 10px;
+    margin-left: 300px;
+}

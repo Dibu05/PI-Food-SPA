@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postRecipe, getRecipeType } from "../actions/index";
 import { useDispatch, useSelector } from "react-redux";
-
+import '../estilos/RecipeCreate.css';
 function RecipeCreate() {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.recipeTypes); //me traigo las recetas usando el useSelector, trayendo el estado
@@ -112,23 +112,26 @@ function RecipeCreate() {
   //label es la casilla que me deja ir creando los ingresos
   //dentro del label, en un input, pongo lo que necesito
   return (
-    <div>
+    <div className="crearReceta">
       <div>
-        <h1>Create a New Recipe</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div>
-            <label>Name:</label>
+        <h1 className="tittle-form">Crea una nueva Receta!</h1>
+        <form className="formulario" onSubmit={(e) => handleSubmit(e)}>
+          <div className="form1">
+            <label>Nombre:</label>
             <input
+              className="casilla1"
               type="text"
               value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
             />
             {err.name && <p>{err.name}</p>}
+
           </div>
-          <div>
-            <label>Resume:</label>
+          <div className="form4">
+            <label>Resumen:</label>
             <input
+            className="casilla4"
               type="text"
               value={input.resume}
               name="resume"
@@ -136,45 +139,52 @@ function RecipeCreate() {
             />
             {err.resume && <p>{err.resume}</p>}
           </div>
-          <div>
-            <label>Score:</label>
+
+          <div className="form2">
+            <label>Puntaje:</label>
             <input
+            className="casilla2"
               type="text"
               value={input.score}
               name="score"
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <div>
-            <label>Healthy Level:</label>
+          <div className="form3">
+            <label>Nivel de comida saludable:</label>
             <input
+            className="casilla3"
               type="text"
               value={input.healthylevel}
               name="healthylevel"
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <div>
-            <label>Step by Step:</label>
+          <div className="form5">
+            <label>Paso a Paso:</label>
             <input
+            className="casilla5"
               type="text"
               value={input.stepbystep}
               name="stepbystep"
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <div>
-            <label>Image:</label>
+
+          <div className="fomr6">
+            <label>Imagen:</label>
             <input
+            className="casilla6"
               type="text"
               value={input.image}
               name="image"
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <div>
-            <label>Type of Diet:</label>
-            <select onChange={(e) => handleSelect(e)} name="diets">
+
+          <div className="form7">
+            <label>Tipo de Dieta:</label>
+            <select className="casilla7" onChange={(e) => handleSelect(e)} name="diets">
               {
                 types.map((t) => (
                   <option value={t.name} key={t.id}>
@@ -183,23 +193,25 @@ function RecipeCreate() {
                 )) //tengo que acceder al nombre y a su vez renderizarlo
               }
             </select>
+
             <div>
-              <button type="submit" disabled={!btnSend}>
-                Create Recipe
+              <button className="crear" type="submit" disabled={!btnSend}>
+                Crear receta
               </button>
+
             </div>
             <Link to="/home">
-              <button>Go back</button>
+              <button>Volver</button>
             </Link>
-            <ul>{input.diets.map((el) => el + ",")}</ul>
+            <ul className="seleccion" >{input.diets.map((el) => el + ",")}</ul>
           </div>
           <div>
-            <div>
+            <div className="lista" >
               {input.diets &&
                 input.diets.map((el) => (
                   <div key={el.id}>
                     <p>{el}</p>
-                    <button onClick={() => handleDelete(el)}>X</button>
+                    <button className="botonX" onClick={() => handleDelete(el)}>X</button>
                   </div>
                 ))}
             </div>

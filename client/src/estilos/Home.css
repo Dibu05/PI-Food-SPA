@@ -1,0 +1,138 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-image: url("./imagenes/FondoHome.jpg");
+}
+
+.Filters {
+  justify-content: space-between;
+  display: flex;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 50px;
+  border-radius: 10x;
+  font-size: 15px;
+}
+
+.Filter-1 {
+  border-radius: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.Filter-2 {
+  border-radius: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.Filter-3 {
+  border-radius: 10px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.refresh {
+  justify-content: space-between;
+  display: flex;
+  margin-left: 500px;
+  margin-right: 500px;
+}
+
+select {
+  height: 20px;
+  width: 20px;
+  margin-top: 0px;
+}
+
+p {
+  margin: 0px;
+  font-size: 20px;
+  color: tomato;
+  font-family: "Akaya Telivigala", cursive;
+}
+
+.btn-actualizar {
+  min-width: 10px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background: #6c757d;
+  box-shadow: 0 5px #495057;
+}
+.btn-actualizar:hover {
+  box-shadow: 0 3px #495057;
+  top: 1px;
+}
+.btn-actualizar:active {
+  box-shadow: 0 0 #495057;
+  top: 5px;
+}
+
+.btn-crear {
+  min-width: 10px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background: #6c757d;
+  box-shadow: 0 5px #495057;
+}
+.btn-crear:hover {
+  box-shadow: 0 3px #495057;
+  top: 1px;
+}
+.btn-crear:active {
+  box-shadow: 0 0 #495057;
+  top: 5px;
+}
+
+.cards{
+margin-top: 40px;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows: repeat(3, 1fr);
+}
+
+.paged{
+  justify-content: space-between;
+  margin-left: 500px;
+  margin-right: 500px;
+  display: flex;
+  margin-top: 50px;
+}
+
+.card-one{
+  border-radius: 30px;
+  background-color: #e0c8a89a;
+  border-bottom: 2px solid #020101;
+  border: solid #f4f2f8;
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.linkto{
+  text-decoration: none;
+  color: black;
+  font-family: "Akaya Telivigala", cursive;
+  font-size: 20px;
+}

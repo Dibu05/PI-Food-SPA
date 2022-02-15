@@ -1,0 +1,11 @@
+.paginado {
+    justify-content: space-between;
+    font-family: 'Marker Felt';
+    font-size: 10px;
+    display: flex;
+    margin-left: 0px;
+    list-style: none;
+    text-align: center;
+    margin-top: -30px;
+    
+}
